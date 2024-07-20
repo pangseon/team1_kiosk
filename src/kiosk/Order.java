@@ -1,5 +1,9 @@
 package kiosk;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class Order {
     public Product[] orderList;
     public int numProduct = 0;
@@ -7,10 +11,15 @@ public class Order {
     public double sum;
     public Product[] soldProduct;
     int numOrder = 0;
+    public Date orderTime;
+    public String completionTime;
+    private int waitingNumber; //대기 번호
 
     public Order() {
+        this.waitingNumber = 1;
         this.orderList = new Product[100];
         this.soldProduct = new Product[100];
+        this.orderTime = new Date();
     }
 
     public void addQuestion() {
@@ -54,14 +63,27 @@ public class Order {
         System.out.println();
         System.out.println("1. 주문      2. 메뉴판");
     }
+    public void setWaitingNumber(int number) {
+        this.waitingNumber = number;
+    }
+
+    public int getWaitingNumber() {
+        return waitingNumber;
+    }
 
     public void ordering(Kiosk_Management km) {
         System.out.println("주문이 완료되었습니다!");
         System.out.println();
-        System.out.println("대기 번호는 [ " + numOrder + " ]번 입니다.");
+        System.out.println("대기 번호는 [ " + getWaitingNumber() + " ]번 입니다.");
         System.out.println("3초 후 메뉴판으로 돌아갑니다.");
         km.addOrder(this);
         numProduct = 0;
+    }
+
+    public void setCompletionTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        this.completionTime = sdf.format(new Date());
     }
 
     public void cancelQuestion() {
@@ -90,3 +112,5 @@ public class Order {
         System.out.println("1. 돌아가기");
     }
 }
+
+
