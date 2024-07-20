@@ -1,5 +1,4 @@
 package kiosk;
-
 import java.util.Scanner;
 
 public class Kiosk {
@@ -9,7 +8,7 @@ public class Kiosk {
         menus[1] = new Menu("Financier", "버터 풍미 가득한 휘낭시에");
         menus[2] = new Menu("Coffee", "매장에서 직접 만드는 커피");
 
-        Product[] products1 = new Product[5];
+        kiosk.Product[] products1 = new Product[5];
         Product[] products2 = new Product[5];
         Product[] products3 = new Product[3];
 
