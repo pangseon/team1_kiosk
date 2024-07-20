@@ -37,7 +37,8 @@ public class Kiosk {
         Scanner scan = new Scanner(System.in);
 
         while (true) {
-            kiosk.menuShow(menus);
+            menuShow(menus, km);
+            //kiosk.menuShow(menus);
             Product[] product;
             int menuAnswer = scan.nextInt();
             if (menuAnswer == (menus.length +1)) {
@@ -66,8 +67,10 @@ public class Kiosk {
                     km.printOrderQueue();
                 }else if(i == 2){
                     // 완료 주문 목록
+                    km.printCompletedOrders();
                 }else if(i == 3){
                     // 상품생성
+                    km.createProduct();
                 }else if(i == 4){
                     // 상품 삭제
                 }
@@ -100,30 +103,34 @@ public class Kiosk {
             }
         }
     }
+        public static void menuShow(Menu menus[], Kiosk_Management km){
+            System.out.println("\"FALL BAKERY에 오신 걸 환영합니다.");
+            System.out.println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.");
+            System.out.println();
+            System.out.println("[ FALL BAKERY MENU ]");
+            for (int i = 0; i < menus.length; i++) {
+                System.out.print((i + 1) + ". ");
+                System.out.println(menus[i].show());
+            }
+            System.out.println();
+            km.printMenu(); //3. 상품 생성
 
-    public void menuShow(Menu menus[]) {
-        System.out.println("\"FALL BAKERY에 오신 걸 환영합니다.");
-        System.out.println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.");
-        System.out.println();
-        System.out.println("[ FALL BAKERY MENU ]");
-        for (int i = 0; i < menus.length; i++) {
-            System.out.print((i+1) + ". ");
-            System.out.println(menus[i].show());
+
+            System.out.println("[ ORDER MENU ]");
+            int i = menus.length;
+            System.out.println((i + 1) + ". Order  | 장바구니를 확인 후 주문합니다.");
+            System.out.println((i + 2) + ". Cancel | 진행중인 주문을 취소합니다.");
+
+            //키오스크 관리 프로그램을 어따 넣는건지 모르겠어서 일단 여기다 넣음
+            System.out.println();
+            System.out.println("[ KIOSK MANAGEMENT MENU ]");
+            System.out.println((i + 3) + ". Management | 키오스크 관리 프로그램으로 이동합니다.");
         }
-        System.out.println();
-        System.out.println("[ ORDER MENU ]");
-        int i = menus.length;
-        System.out.println((i+1) + ". Order  | 장바구니를 확인 후 주문합니다.");
-        System.out.println((i+2) + ". Cancel | 진행중인 주문을 취소합니다.");
-        //키오스크 관리 프로그램을 어따 넣는건지 모르겠어서 일단 여기다 넣음
-        System.out.println("");
-        System.out.println("[ KIOSK MANAGEMENT MENU ]");
-        System.out.println((i+3) + ". Management | 키오스크 관리 프로그램으로 이동합니다.");
+
+        public static void productShow(Product products[]){
+            for (int i = 0; i < products.length; i++) {
+                System.out.println((i + 1) + ". " + products[i].show());
+            }
+        }
     }
 
-    public void productShow(Product products[]) {
-        for (int i = 0; i < products.length; i++) {
-            System.out.println((i+1) + ". " + products[i].show());
-        }
-    }
-}
